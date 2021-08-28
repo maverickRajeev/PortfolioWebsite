@@ -9,7 +9,9 @@ var router = express.Router();
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use("/", router);
+
+
+app.use(express.static(path.join(__dirname, "/client/build")));
 
 var transport = {
   host: "smtp.gmail.com",
@@ -30,7 +32,7 @@ transporter.verify((error, success) => {
   }
 });
 
-router.post("/send", (req, res, next) => {
+app.post("/send", (req, res, next) => {
   var name = req.body.name;
   var subject = req.body.subject;
   var email = req.body.email;
@@ -57,8 +59,10 @@ router.post("/send", (req, res, next) => {
   });
 });
 
-router.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
 });
 
-app.listen(3002);
+const port = process.env.PORT || 5000;
+app.listen(port);
+console.log(`Listening on port ${port}`);
