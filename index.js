@@ -1,8 +1,15 @@
-var express = require("express");
-var router = express.Router();
-var nodemailer = require("nodemailer");
-var cors = require("cors");
+const express = require("express");
+const path = require("path");
+const nodemailer = require("nodemailer");
+const cors = require("cors");
 const creds = require("./config");
+
+var router = express.Router();
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.use("/", router);
 
 var transport = {
   host: "smtp.gmail.com",
@@ -50,8 +57,8 @@ router.post("/send", (req, res, next) => {
   });
 });
 
-const app = express();
-app.use(cors());
-app.use(express.json());
-app.use("/", router);
+router.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
+
 app.listen(3002);
