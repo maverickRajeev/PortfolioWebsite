@@ -146,7 +146,6 @@ const Technologies = () => {
       scroll3(carouselRef3.current, 0);
       scroll4(carouselRef4.current, 0);
     };
-
     window.addEventListener("resize", handleResize);
   }, []);
 

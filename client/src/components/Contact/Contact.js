@@ -147,10 +147,8 @@ class Contact extends React.Component {
           <SubmitButton
             type="submit"
             className="btn btn-primary"
-            onClick={this.handleSubmit}
-          >
-            Submit
-          </SubmitButton>
+            value="Submit"
+          />
         </form>
       </Section>
     );
